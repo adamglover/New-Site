@@ -1,0 +1,12 @@
+<tr>
+	<perch:content type="checkbox" id="bronze_new_addition" value="1" label="New Addition" suppress="true" />
+        <perch:if exists="bronze_new_addition">
+        <td><i class="icon-star"></i></td>
+        <perch:else />
+        <td></td>
+        </perch:if>
+
+	<td><perch:content id="bronze_kennel_name" type="text" label="Kennel Name" required="true" title="true" help="Enter Kennel Name for Puppy Awards" /></td>
+	<td><perch:content id="bronze_pet_name" type="text" label="Pet Name" required="true" title="false" help="Enter Pet Name for Puppy Awards" /></td>
+	<td><perch:content id="bronze_pass_date" type="date" label="Pass Date" format="M Y" /></td>
+</tr>

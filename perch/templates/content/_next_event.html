@@ -1,0 +1,7 @@
+<div class="well">
+	<h2>Next Society Event</h2>
+	<h4><perch:content id="event_date" type="date" label="Date of event" format="%A, %e %B %Y"/></h4>
+   	<h4><a href="/events/event-details.php?s=<perch:content id="slug" type="slug" for="heading" />">
+	<perch:content id="heading" type="text" label="Event title" required="true" /></a></h4>
+	<perch:content id="what" type="textarea" label="Event description" textile="true" editor="markitup" required="true" chars="200" append="..."/>
+</div>

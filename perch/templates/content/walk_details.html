@@ -1,0 +1,17 @@
+<h1><perch:content id="heading" type="text" label="Walk title" title="true" required="true" /></h1>
+<h3><perch:content id="walk_date" type="date" label="Date of walk" format="%A, %e %B %Y" supress"true"/></h3>
+<h4>Where: <perch:content id="where" type="text" label="Walk location" required="true" /></h4>
+<h4>Who: <perch:content id="who" type="text" label="Walk leader" required="true" /></h4>
+<h4>What:</h4>
+  <perch:content id="what" type="textarea" label="Walk description" textile="true" editor="markitup" required="true" />
+<h4>Look out for:</h4>
+  <perch:content id="hazards" type="textarea" label="Walk hazards" textile="true" editor="markitup" required="true" />
+<h4>Closest vet:</h4>
+  <perch:content id="vet" type="textarea" label="Vet details" help="Enter information in the following order: Practice name; Address; Contact No." textile="true" editor="markitup" required="true" />
+<h4>Closest hospital</h4>
+  <perch:content id="hospital" type="textarea" label="Hospital details" help="Enter information in the following order: Hospital name; Address; Contact No." textile="true" editor="markitup" required="true" />
+<h4>Facilities:</h4>
+  <p>Icons from Bootstrap for toilets, food, drink etc</p>
+<h4>Route:</h4>
+  <perch:content id="map" type="textarea" label="Map" help="Embed code from map my walk" textile="true" editor="markitup" html="true" required="true" />
+<perch:content id="slug" type="slug" for="heading" suppress="true" />

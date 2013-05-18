@@ -1,0 +1,38 @@
+legend {
+	display: block; 
+	font-weight: bold; 
+	margin-left: 10px;
+}
+
+.del {
+	padding-top: 5px;
+	margin-left: 240px;
+	padding-bottom: 5px;
+}
+
+.order-details {
+	width: 450px;
+	float: left;
+}
+
+.order-details th {
+	font-weight: bold;
+	text-align: right;
+}
+
+.address {
+	float: left;
+	width: 300px;
+	margin-left: 5%;
+	font-size: 120%;
+	margin-bottom: 1em;
+}
+
+.address h2 {
+	background-color: transparent;
+	padding: 0 0 0.5em 0;
+}
+
+h2 {
+	clear: left;
+}

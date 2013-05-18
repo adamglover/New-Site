@@ -1,0 +1,14 @@
+AuthUserFile /var/www/vhosts/sfls.org.uk/subdomains/development/httpdocs/.htpasswd
+AuthName "Please Log In"
+AuthType Basic
+
+require valid-user
+
+<IfModule mod_rewrite.c>  
+    RewriteEngine on  
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php    
+    RewriteRule ^news/([a-zA-Z0-9-/]+)$ /news/post.php?s=$1 [L]
+    RewriteRule ^shop/([a-zA-Z0-9-/]+)$ /shop/product.php?s=$1 [L]
+</IfModule>

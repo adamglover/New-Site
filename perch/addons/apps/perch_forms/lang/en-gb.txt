@@ -1,0 +1,13 @@
+{
+	"lang":"en-gb",
+	"Forms":"Forms",
+	"Form Responses":"Form Responses",
+	"Click on a response to see the full detail, or you can download the responses as a CSV file.":"Click on a response to see the full detail, or you can download the responses as a CSV file.",
+	"Listing Spam Responses":"Listing Spam Responses",
+	"All Responses":"All Responses",
+	"Spam":"Spam",
+	"Form Options":"Form Options",
+	"Download CSV":"Download CSV",
+	"CSV":"CSV",
+	"%s responses":"%s responses"
+}

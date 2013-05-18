@@ -1,0 +1,20 @@
+        <perch:content type="checkbox" id="first_slider" value="1" label="First Slider" suppress="true" />
+        <perch:if exists="first_slider">
+        <div class="item active">
+        <perch:else />
+        <div class="item">
+        </perch:if>
+        
+          <img src="<perch:content id="slider" type="image" label="Slider image (1550px x 400px)" />" alt="<perch:content id="slideralt" type="text" label="Alt text" />" />
+          <div class="container">
+            <div class="carousel-caption">
+              <h1><perch:content id="title" type="text" label="Heading" required="true" title="true" /></h1>
+              <perch:content id="text" type="textarea" label="Text" textile="true" editor="markitup" />
+              <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
