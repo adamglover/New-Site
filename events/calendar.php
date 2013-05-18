@@ -78,7 +78,7 @@
 			<table class="table table-condensed">
                         <thead>
                             <tr>
-                                <th>Walk</th>
+                                <th>Event</th>
                                 <th>Date</th>
                                 <th>Facilities</th>
                             </tr>

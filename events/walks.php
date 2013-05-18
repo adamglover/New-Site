@@ -75,49 +75,29 @@
       <div class="row">
         <!--Welcome section-->
         <div class="span8">
-			<table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Walk</th>
-                                <th>Date</th>
-                                <th>Facilities</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-    						$opts = array(
-            					'page'=>'/events/walk-details.php',
-            					'template'=>'_walks_list.html'
-        					);
-    						perch_content_custom('Walk Details', $opts);
-							?>
-                        </tbody>  
-                    </table>
-				
+			    <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Walk</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                $opts = array(
+                  'page'=>'/events/event-details.php',
+                  'template'=>'_walks.html',
+                  'sort'=>'event_date',
+                  'sort-order'=>'DESC',
+                );
+                perch_content_custom('Event Details', $opts); 
+              ?>
+				    </tbody>  
+          </table>
 		</div>  
-        <div class="span4">
-          <!--Next Event-->
-          <div class="well">
-            <h2>Next Event</h2>
-            <p>This is about our next event</p>
-            <p>Could be a walk, a seminar, the AGM, Fundays, anything that is orgnised by the club</p>
-          </div>
-          
-         <div class="well"> 
-          <?php 
-
-          $opts = array(
-            'sort'=>'postDateTime',
-            'sort-order'=>'DESC',
-            'count'=>'3',
-            'template'=>'blog/homepage_post_in_list.html'
-            );
-          perch_blog_custom($opts); ?>
-          </div>
-          <!--FB Like Box-->
-          <div class="fb-like-box" data-href="https://www.facebook.com/SouthernFinnishLapphundSociety" data-width="370" data-show-faces="false" data-stream="true" data-header="true">
-          </div>
-                
+        <?php perch_layout('global.side'); ?>       
         </div>
       </div>
     </div> <!-- /container -->

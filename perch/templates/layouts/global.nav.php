@@ -42,7 +42,7 @@
                   <!--Society Events-->
                   <li class="nav-header">Society Events</li>
                   <li><a href="/events/calendar">Events Calendar</a></li>
-                  <li><a href="/walks.html">Walks</a></li>
+                  <li><a href="/events/walks">Walks</a></li>
                   <li><a href="/funday.html">Funday</a></li>
                   <li><a href="/agm.html">AGM</a></li>
                   <li><a href="/sfls_show.html">SFLS Open Show</a></li>
