@@ -5,11 +5,15 @@
               'page'=>'/events/event-details.php',
               'template'=>'_next_event.html',
               'sort'=>'event_date',
-              'sort-order'=>'DESC',
-              'count'=> 1
+              'sort-order'=>'ASC',
+              'count'=> 1,
+              'filter'=>'event_date',
+              'match'=>'gte',
+              'value'=>date('Y-m-d H:i:s'),
             );
             perch_content_custom('Event Details', $opts); 
           ?>
+          </perch:if>
           
          <div class="well"> 
           <h2>Latest News</h2>

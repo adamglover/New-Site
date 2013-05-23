@@ -75,6 +75,7 @@
       <div class="row">
         <!--Welcome section-->
         <div class="span8">
+          <?php perch_content('Walks Intro'); ?>
 			    <table class="table table-condensed">
             <thead>
               <tr>
@@ -90,7 +91,7 @@
                   'page'=>'/events/event-details.php',
                   'template'=>'_walks.html',
                   'sort'=>'event_date',
-                  'sort-order'=>'DESC',
+                  'sort-order'=>'ASC',
                 );
                 perch_content_custom('Event Details', $opts); 
               ?>

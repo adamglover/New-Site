@@ -67,7 +67,7 @@
               <li class="<?php perch_layout_var('activities'); ?> dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activities<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/activities/good_citizen">KC Good Citizen</a></li>
+                  <li><a href="/activities/good-citizen">KC Good Citizen</a></li>
                   <li><a href="/showing.html">Showing</a></li>
                   <li><a href="/agility.html">Agility</a></li>
                   <li><a href="/other_ideas.html">Other ideas</a></li>
