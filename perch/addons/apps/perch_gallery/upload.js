@@ -31,7 +31,7 @@ Perch.Apps.PerchGallery = function() {
 				init : {
 					StateChanged: function(up) {
 						if (up.state==plupload.STOPPED) {
-							window.location = success_url;
+							setTimeout(function(){window.location = success_url}, 5000);
 						}
 					}
 				}

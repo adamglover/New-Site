@@ -7,7 +7,7 @@
 
     $Settings = $API->get('Settings');
 
-    if ($Settings->get('perch_blog_update')->val()!='3.7.1') {
+    if ($Settings->get('perch_blog_update')->val()!='3.7.5') {
 
         $UserPrivileges = $API->get('UserPrivileges');
         $UserPrivileges->create_privilege('perch_blog', 'Access the blog');
@@ -38,16 +38,19 @@
         $db->execute($sql);
 
         // 3.7
-        $sql = "ALTER TABLE `".PERCH_DB_PREFIX."categories` ADD `categoryPostCount` INT(10)  UNSIGNED  NOT NULL  DEFAULT '0'  AFTER `categorySlug`";
+        $sql = "ALTER TABLE `".PERCH_DB_PREFIX."blog_categories` ADD `categoryPostCount` INT(10)  UNSIGNED  NOT NULL  DEFAULT '0'  AFTER `categorySlug`";
         $db->execute($sql);
-        $sql = "ALTER TABLE `".PERCH_DB_PREFIX."categories` ADD `categoryDynamicFields` TEXT  NULL  AFTER `categoryPostCount`";
+        $sql = "ALTER TABLE `".PERCH_DB_PREFIX."blog_categories` ADD `categoryDynamicFields` TEXT  NULL  AFTER `categoryPostCount`";
         $db->execute($sql);
         $sql = "ALTER TABLE `".PERCH_DB_PREFIX."blog_posts` ADD `postTemplate` VARCHAR(255)  NOT NULL  DEFAULT 'post.html'  AFTER `postAllowComments`";
         $db->execute($sql);
         $sql = "ALTER TABLE `".PERCH_DB_PREFIX."blog_authors` ADD `authorDynamicFields` TEXT  NULL  AFTER `authorImportRef`";
         $db->execute($sql);
 
-        $Settings->set('perch_blog_update', '3.7.1');
+        $Cats = new PerchBlog_Categories($API);
+        $Cats->update_post_counts();
+
+        $Settings->set('perch_blog_update', '3.7.5');
 
     }
 

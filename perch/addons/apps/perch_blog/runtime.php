@@ -216,12 +216,41 @@
      * @param string $template template to render the categories
      * @param bool $return if set to true returns the output rather than echoing it
      */
-    function perch_blog_post_categories($id_or_slug, $template='post_category_link.html',$return=false)
+    function perch_blog_post_categories($id_or_slug, $opts='post_category_link.html', $return=false)
     {
         $id_or_slug = rtrim($id_or_slug, '/');
 
-        $cache_key = 'perch_blog_post_categories'.md5($id_or_slug.$template);
-        $cache = PerchBlog_Cache::get_static($cache_key, 10);
+        $default_opts = array(
+            'template'             => 'post_category_link.html',
+            'skip-template'        => false,
+            'cache'                => true,
+        );
+
+        if (!is_array($opts)) {
+            $opts = array('template'=>$opts);
+        }
+
+        if (is_array($opts)) {
+            $opts = array_merge($default_opts, $opts);
+        }else{
+            $opts = $default_opts;
+        }
+
+        if ($opts['skip-template']) {
+            $return = true;
+        }
+
+        $cache = false;
+        $template = $opts['template'];
+
+        if ($opts['cache']) {
+            $cache_key = 'perch_blog_post_categories'.md5($id_or_slug.serialize($opts));
+            $cache = PerchBlog_Cache::get_static($cache_key, 10);
+
+            if ($opts['skip-template']) {
+                $cache = unserialize($cache);
+            }
+        }
 
         if ($cache) {
             if ($return) return $cache;
@@ -247,6 +276,21 @@
             $Categories = new PerchBlog_Categories();
             $cats   = $Categories->get_for_post($postID);
             
+            if ($opts['skip-template']) {
+
+                $out = array();
+                foreach($cats as $Cat) {
+                    $out[] = $Cat->to_array();
+                }
+
+                if ($opts['cache']) {
+                    PerchBlog_Cache::save_static($cache_key, serialize($out)); 
+                }
+
+                return $out;
+
+            }
+
             $Template = $API->get('Template');
             $Template->set('blog/'.$template, 'blog');
 
@@ -268,18 +312,48 @@
      * @param string $template template to render the tags
      * @param bool $return if set to true returns the output rather than echoing it
      */
-    function perch_blog_post_tags($id_or_slug, $template='post_tag_link.html', $return=false)
+    function perch_blog_post_tags($id_or_slug, $opts='post_tag_link.html', $return=false)
     {
         $id_or_slug = rtrim($id_or_slug, '/');
 
-        $cache_key = 'perch_blog_post_tags'.md5($id_or_slug.$template);
-        $cache = PerchBlog_Cache::get_static($cache_key, 10);
+        $default_opts = array(
+            'template'             => 'post_tag_link.html',
+            'skip-template'        => false,
+            'cache'                => true,
+        );
+
+        if (!is_array($opts)) {
+            $opts = array('template'=>$opts);
+        }
+
+        if (is_array($opts)) {
+            $opts = array_merge($default_opts, $opts);
+        }else{
+            $opts = $default_opts;
+        }
+
+        if ($opts['skip-template']) {
+            $return = true;
+        }
+
+        $cache = false;
+        $template = $opts['template'];
+
+        if ($opts['cache']) {
+            $cache_key = 'perch_blog_post_tags'.md5($id_or_slug.serialize($opts));
+            $cache = PerchBlog_Cache::get_static($cache_key, 10);
+
+            if ($opts['skip-template']) {
+                $cache = unserialize($cache);
+            }
+        }
+
+        
 
         if ($cache) {
             if ($return) return $cache;
             echo $cache; return '';
         }
-
 
         $API  = new PerchAPI(1.0, 'perch_blog');
         $BlogPosts = new PerchBlog_Posts($API);
@@ -298,6 +372,21 @@
         if ($postID!==false) {
             $Tags = new PerchBlog_Tags();
             $tags   = $Tags->get_for_post($postID);
+
+            if ($opts['skip-template']) {
+
+                $out = array();
+                foreach($tags as $Tag) {
+                    $out[] = $Tag->to_array();
+                }
+
+                if ($opts['cache']) {
+                    PerchBlog_Cache::save_static($cache_key, serialize($out)); 
+                }
+
+                return $out;
+
+            }
             
             $Template = $API->get('Template');
             $Template->set('blog/'.$template, 'blog');
@@ -502,11 +591,38 @@
      * @param string $template
      * @param bool $return if set to true returns the output rather than echoing it
      */
-    function perch_blog_date_archive_years($template='year_link.html', $return=false)
+    function perch_blog_date_archive_years($opts='year_link.html', $return=false)
     {
+        $default_opts = array(
+            'template'             => 'year_link.html',
+            'skip-template'        => false,
+            'cache'                => true,
+        );
 
-        $cache_key = 'perch_blog_date_archive_years'.md5($template);
-        $cache = PerchBlog_Cache::get_static($cache_key, 10);
+        if (!is_array($opts)) {
+            $opts = array('template'=>$opts);
+        }
+
+        if (is_array($opts)) {
+            $opts = array_merge($default_opts, $opts);
+        }else{
+            $opts = $default_opts;
+        }
+
+        if ($opts['skip-template']) {
+            $return = true;
+        }
+
+        $cache = false;
+        $template = $opts['template'];
+
+        if ($opts['cache']) {
+            $cache_key = 'perch_blog_date_archive_years'.md5(serialize($opts));
+            $cache = PerchBlog_Cache::get_static($cache_key, 10);
+
+            if ($opts['skip-template']) $cache = unserialize($cache);
+        }
+        
 
         if ($cache) {
             if ($return) return $cache;
@@ -517,6 +633,11 @@
         $BlogPosts = new PerchBlog_Posts($API);
         
         $years = $BlogPosts->get_years();
+
+        if ($opts['skip-template']) {
+            if ($opts['cache']) PerchBlog_Cache::save_static($cache_key, serialize($years));
+            return $years;
+        }
         
         $Template = $API->get('Template');
         $Template->set('blog/'.$template, 'blog');

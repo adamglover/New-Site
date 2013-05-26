@@ -137,7 +137,7 @@ class PerchBlog_Categories extends PerchAPI_Factory
                         if ($filter_mode=='AND' && isset($out[$item['_id']])) {
                             unset($out[$item['_id']]);
                         }
-
+                        if (!isset($item[$key])) $item[$key] = false;
                         if (isset($item[$key])) {
                             $this_item = $this->_resolve_to_value($item[$key]);
 

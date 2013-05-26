@@ -10,6 +10,7 @@
       `albumSlug` varchar(255) NOT NULL DEFAULT '',
       `albumOrder` int(11) NOT NULL DEFAULT '0',
       `albumDynamicFields` text,
+      `imageCount` int(10) unsigned NOT NULL DEFAULT '0',
       PRIMARY KEY (`albumID`),
       KEY `idx_slug` (`albumSlug`)
     ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
@@ -21,6 +22,8 @@
       `albumID` int(10) unsigned NOT NULL DEFAULT '0',
       `imageOrder` int(10) unsigned NOT NULL DEFAULT '0',
       `imageDynamicFields` text,
+      `imageStatus` enum('active','uploading','failed') NOT NULL DEFAULT 'active',
+      `imageBucket` varchar(255) NOT NULL DEFAULT 'default',
       PRIMARY KEY (`imageID`),
       KEY `idx_albumID` (`albumID`)
     ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
@@ -51,10 +54,11 @@
     $UserPrivileges->create_privilege('perch_gallery.image.upload', 'Upload images');
 
 
-
     $sql = 'SHOW TABLES LIKE "'.$this->table.'"';
     $result = $this->db->get_value($sql);
     
     return $result;
+
+
 
 ?>

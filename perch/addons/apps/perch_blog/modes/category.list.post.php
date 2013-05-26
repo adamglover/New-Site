@@ -14,7 +14,7 @@
 	include ('_subnav.php');
 
 
-    echo '<a class="add button" href="'.$HTML->encode($API->app_path().'/categories/new/').'">'.$Lang->get('Add Category').'</a>';
+    echo '<a class="add button" href="'.$HTML->encode($API->app_path().'/categories/edit/').'">'.$Lang->get('Add Category').'</a>';
 
 
 	# Title panel

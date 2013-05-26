@@ -1,6 +1,7 @@
 <?php
     
     $GalleryAlbums = new PerchGallery_Albums($API);
+    $Albums = $GalleryAlbums;
     $Images = new PerchGallery_Images($API);
     $PerchGallery_ImageVersions = new PerchGallery_ImageVersions($API);
     $message = false;
@@ -67,7 +68,37 @@
     	
         if ($result) {
         	
-            $image_folder_writable = is_writable(PERCH_RESFILEPATH);
+           $bucket_name = 'default'; 
+
+            $Settings = PerchSettings::fetch();
+
+            $bucket_mode = $Settings->get('perch_gallery_bucket_mode')->val();
+            if ($bucket_mode == '') $bucket_mode = 'single';
+
+            switch($bucket_mode) {
+                case 'dynamic':
+                    $Album = $Albums->find($albumID);
+                    if (is_object($Album)) {
+                        $bucket_name = $Album->albumSlug();
+                    } 
+                    break;
+                default:
+                    $bucket_name = $Settings->get('perch_gallery_bucket')->val();
+                    break;
+            }
+
+            if ($bucket_name == '') $bucket_name = 'default';
+
+            $Perch = Perch::fetch();
+
+            $bucket = $Perch->get_resource_bucket($bucket_name);
+
+            $targetDir = $bucket['file_path'];
+
+
+            
+            $image_folder_writable = is_writable($targetDir);
+
             $filesize = 0;
 
             if (isset($_FILES['upload'])) {
@@ -79,29 +110,37 @@
         	if($filesize > 0) {
 
         		if($image_folder_writable && isset($file)) {
-        			$filename = PerchUtil::tidy_file_name($file);
-        			if(strpos($filename,'.php')!==false) $filename.='.txt'; //checking for naughty uploading of php files.
-        			$target = PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$filename;
-        			if(file_exists($target)) {
+                    $filename = PerchUtil::tidy_file_name($file);
+                    if(strpos($filename,'.php')!==false) $filename.='.txt'; //checking for naughty uploading of php files.
+                    $target = PerchUtil::file_path($targetDir.'/'.$filename);
+                    if(file_exists($target)) {
                         $ext = strrpos($filename, '.');
                         $fileName_a = substr($filename, 0, $ext);
                         $fileName_b = substr($filename, $ext);
 
                         $count = 1;
-                        while (file_exists(PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$fileName_a.'_'.$count.$fileName_b)) {
+                        while (file_exists(PerchUtil::file_path($targetDir.'/'.$fileName_a.'_'.$count.$fileName_b))) {
                             $count++;
                         }
 
                         $filename = $fileName_a . '_' . $count . $fileName_b;
-                        $target = PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$filename;
-        			}
-        		}
+                        $target = PerchUtil::file_path($targetDir.'/'.$filename);
+                    }
+                }
 
         		PerchUtil::move_uploaded_file($_FILES['upload']['tmp_name'], $target);
 
+
+                $Image->update(array('imageStatus'=>'uploading'));
+
         		if (is_object($Image)) {
-        		    $Image->process_versions($filename, $Template);
+        		    $Image->process_versions($filename, $Template, $bucket);
         		}
+
+                $Image->update(array('imageStatus'=>'active'));
+
+                $Album = $GalleryAlbums->find($albumID);
+                if (is_object($Album)) $Album->update_image_count();
         	}
         	
         	if($new_image) {

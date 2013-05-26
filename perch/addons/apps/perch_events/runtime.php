@@ -2,7 +2,6 @@
 
     PerchSystem::register_search_handler('PerchEvents_SearchHandler');
 
-    # Include your class files as needed - up to you.
     require('PerchEvents_Events.class.php');
     require('PerchEvents_Event.class.php');
     require('PerchEvents_Categories.class.php');
@@ -59,17 +58,28 @@
     
     function perch_events_custom($opts=false, $return=false)
     {
-        if (isset($opts['skip-template']) && $opts['skip-template']==true) $return = true; 
-        
+        if (isset($opts['skip-template']) && $opts['skip-template']==true) {
+            $return  = true; 
+            $postpro = false;
+        }else{
+            $postpro = true;
+        }
+
         $API  = new PerchAPI(1.0, 'perch_events');
         
         $Events = new PerchEvents_Events($API);
         
-        $r = $Events->get_custom($opts);
+        $out = $Events->get_custom($opts);
+
+        // Post processing - if there are still <perch:x /> tags
+        if ($postpro && !is_array($out) && strpos($out, '<perch:')!==false) {
+            $Template   = new PerchTemplate();
+            $out        = $Template->apply_runtime_post_processing($out);
+        }
         
-    	if ($return) return $r;
+    	if ($return) return $out;
     	
-    	echo $r;
+    	echo $out;
     }
     
     /**

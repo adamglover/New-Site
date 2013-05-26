@@ -20,13 +20,17 @@ class PerchGallery_Image  extends PerchAPI_Base
 		$PerchGallery_ImageVersions = new PerchGallery_ImageVersions();
 		
 		$versions = $PerchGallery_ImageVersions->get_for_image($this->id());
+
+        $Perch = Perch::fetch();
+
+        $bucket = $Perch->get_resource_bucket($this->imageBucket());
 		
 		if(PerchUtil::count($versions)) {
 			foreach($versions as $Version) {
-				PerchUtil::debug('Checking:'.PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$Version->versionPath());
-				if(file_exists(PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$Version->versionPath())) {
-					PerchUtil::debug('Unlinking:'.PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$Version->versionPath());
-					unlink(PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$Version->versionPath());
+				PerchUtil::debug('Checking:'.PerchUtil::file_path($bucket['file_path'].'/'.$Version->versionPath()));
+				if(file_exists(PerchUtil::file_path($bucket['file_path'].'/'.$Version->versionPath()))) {
+					PerchUtil::debug('Unlinking:'.PerchUtil::file_path($bucket['file_path'].'/'.$Version->versionPath()));
+					unlink(PerchUtil::file_path($bucket['file_path'].'/'.$Version->versionPath()));
 					
 				}
 			}
@@ -50,7 +54,6 @@ class PerchGallery_Image  extends PerchAPI_Base
      */
     public function get_version($versionKey) 
     {
-    	
     	$PerchGallery_ImageVersions = new PerchGallery_ImageVersions();
     	
     	$Version = $PerchGallery_ImageVersions->get_by_key($this->id(), $versionKey);
@@ -91,8 +94,14 @@ class PerchGallery_Image  extends PerchAPI_Base
         $versions = $this->get_versions_for_image($PerchGallery_ImageVersions);
         
         if (PerchUtil::count($versions)) {
+
+            $bucket_name = $this->details['imageBucket'];
+            $Perch  = Perch::fetch();
+            $bucket = $Perch->get_resource_bucket($bucket_name);
+
+
             foreach($versions as $Version) {
-                $out[$Version->versionKey()] = PERCH_RESPATH .'/'.$Version->versionPath();
+                $out[$Version->versionKey()] = $Version->path($bucket);
                 $out[$Version->versionKey().'-w'] = $Version->versionWidth();
                 $out[$Version->versionKey().'-h'] = $Version->versionHeight();
                 $out[$Version->versionKey().'-id'] = $Version->versionID();
@@ -114,13 +123,13 @@ class PerchGallery_Image  extends PerchAPI_Base
      * @return void
      * @author Drew McLellan
      */
-    public function process_versions($filename, $Template)
+    public function process_versions($filename, $Template, $bucket)
     {
         $this->delete_versions();
         
         $result = false;
         
-        $image_file = PERCH_RESFILEPATH.DIRECTORY_SEPARATOR.$filename;
+        $image_file = PerchUtil::file_path($bucket['file_path'].'/'.$filename);
         PerchUtil::debug('123: '. $image_file);
         
         if (!file_exists($image_file)) return false;
@@ -131,19 +140,26 @@ class PerchGallery_Image  extends PerchAPI_Base
         $Versions = new PerchGallery_ImageVersions;
         
         $tags = $Template->find_all_tags();
+
+        $Perch = Perch::fetch();
         
         if (!is_array($tags)) $tags = array();
         
         // add defaults we need for admin
-        $tags[] = new PerchXMLTag('<perch:gallery id="image" type="image" />'); //default full size
+        $tags[] = new PerchXMLTag('<perch:gallery id="image" type="image" />'); // default full size
         $tags[] = new PerchXMLTag('<perch:gallery id="image" type="image" width="80" height="80" crop="true" key="admin_thumb" />'); // admin thumb
         $tags[] = new PerchXMLTag('<perch:gallery id="image" type="image" width="180" key="admin_preview" />'); // admin preview
         
         if (PerchUtil::count($tags)) {
             foreach($tags as $Tag) {
                 if ($Tag->id()=='image' && $Tag->type()=='image') {
-                    
+
+                    //$bucket = $Perch->get_resource_bucket($Tag->bucket());
+
+                  
                     if ($Tag->quality()) $Image->set_quality($Tag->quality());
+                    if ($Tag->sharpen()) $Image->set_sharpening($Tag->sharpen());
+                    if ($Tag->density()) $Image->set_density($Tag->density());
                     
                     if ($Tag->width() || $Tag->height()) {
                         $details = $Image->resize_image($image_file, $Tag->width(), $Tag->height(), $Tag->crop());

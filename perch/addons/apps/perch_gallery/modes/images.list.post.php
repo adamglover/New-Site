@@ -50,7 +50,7 @@
 	    <a href="<?php echo $HTML->encode($API->app_path()); ?>/images/edit/?album_id=<?php echo $HTML->encode(urlencode($albumID)); ?>&amp;id=<?php echo $HTML->encode(urlencode($Image->id())); ?>" class="img">
     	    <?php 
     	        if (is_object($Image)) {
-                    echo '<img src="'.PERCH_RESPATH.'/'.$admin_thumb->versionPath().'" alt="'.$HTML->encode($Image->imageAlt()).'" />';
+                    echo '<img src="'.$admin_thumb->path().'" alt="'.$HTML->encode($Image->imageAlt()).'" />';
     	        }
     	    ?>
     	</a>

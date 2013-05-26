@@ -47,8 +47,8 @@
                 $OriginalVersion = $Image->get_version('original');
                 if(is_object($PreviewVersion)) {
                     echo '<div class="field">
-                            <a class="preview" href="'.PERCH_RESPATH.DIRECTORY_SEPARATOR.$OriginalVersion->versionPath().'">
-                            <img src="'.PERCH_RESPATH.DIRECTORY_SEPARATOR.$PreviewVersion->versionPath().'" alt="'.$Image->imageAlt().'" height="'.$PreviewVersion->versionHeight().'" width="'.$PreviewVersion->versionWidth().'" />
+                            <a class="preview" href="'.$OriginalVersion->path().'">
+                            <img src="'.$PreviewVersion->path().'" alt="'.$Image->imageAlt().'" height="'.$PreviewVersion->versionHeight().'" width="'.$PreviewVersion->versionWidth().'" />
                             </a>
                          </div>';
                 }

@@ -10,7 +10,7 @@ class PerchShop_SearchHandler implements PerchAPI_SearchHandler
         $API = new PerchAPI(1.0, 'perch_shop');
         $db = $API->get('DB');
         
-        $sql = 'SELECT "'.__CLASS__.'" AS source, MATCH(productTitle, productDescRaw) AGAINST('.$db->pdb($key).') AS score, productTitle, productSlug, productPrice, productDescHTML, productID, "", "", ""
+        $sql = 'SELECT \''.__CLASS__.'\' AS source, MATCH(productTitle, productDescRaw) AGAINST('.$db->pdb($key).') AS score, productTitle, productSlug, productPrice, productDescHTML, productID, "", "", ""
 	            FROM '.PERCH_DB_PREFIX.'shop_products 
 	            WHERE productStatus=\'Live\'
 	                AND MATCH(productTitle, productDescRaw) AGAINST('.$db->pdb($key).')';
@@ -22,7 +22,7 @@ class PerchShop_SearchHandler implements PerchAPI_SearchHandler
         $API = new PerchAPI(1.0, 'perch_blog');
         $db = $API->get('DB');
         
-        $sql = 'SELECT "'.__CLASS__.'" AS source, productPrice AS score, productTitle, productSlug, productPrice, productDescHTML, productID, "", "", ""
+        $sql = 'SELECT \''.__CLASS__.'\' AS source, productPrice AS score, productTitle, productSlug, productPrice, productDescHTML, productID, "", "", ""
 	            FROM '.PERCH_DB_PREFIX.'shop_products 
 	            WHERE productStatus=\'Live\'
 	                AND ( 

@@ -31,7 +31,7 @@
             			$admin_thumb = $Image->image_admin_preview();
             			if (is_object($admin_thumb)) {
 							echo '<a href="'.PerchUtil::html(PERCH_LOGINPATH.'/addons/apps/perch_gallery/images/edit/?album_id='.$Image->albumID().'&id='.$Image->id()).'">';
-							echo '<img src="'.PERCH_RESPATH.'/'.$admin_thumb->versionPath().'" alt="'.PerchUtil::html($Image->imageAlt()).'" />';
+							echo '<img src="'.$admin_thumb->path().'" alt="'.PerchUtil::html($Image->imageAlt()).'" />';
 							echo '</a>';
 						}
 					}

@@ -429,19 +429,22 @@ class PerchShop_Products extends PerchAPI_Factory
     	    
     	    //get options
     	   
-    	    for($i=0;$i<sizeOf($posts);$i++) {
-    	    	$product_opts = $posts[$i]->get_product_options();
-    	    	if(is_array($product_opts)) {
-    	    		
-    	    		$template = 'shop/product_options.html';
-    	    		$Template = $this->api->get("Template");
-				    $Template->set($template, 'shop');
-				    $productOptions_html = $Template->render_group($product_opts, true);
-				    PerchUtil::debug($productOptions_html);
-			        $posts[$i]->squirrel('productOptions_html',$productOptions_html);
-    	    	}
-    	    }
-
+            if (PerchUtil::count($posts)) {
+                for($i=0;$i<sizeOf($posts);$i++) {
+                    if (is_object($posts[$i])) {
+                        $product_opts = $posts[$i]->get_product_options();
+                        if(is_array($product_opts)) {
+                            
+                            $template = 'shop/product_options.html';
+                            $Template = $this->api->get("Template");
+                            $Template->set($template, 'shop');
+                            $productOptions_html = $Template->render_group($product_opts, true);
+                            PerchUtil::debug($productOptions_html);
+                            $posts[$i]->squirrel('productOptions_html',$productOptions_html);
+                        }
+                    }
+                }
+            }
         }
 	    
 	    

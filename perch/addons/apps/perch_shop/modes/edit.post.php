@@ -64,7 +64,7 @@
     			
     			echo '<h2>Product options</h2>';
                 echo '<div class="helptext">';
-    			echo '<p>Options set here will create a select box on the product page so the user can pick a value. For example an option of "Size" might have a list of values S, M, L, XXL. These values will turn into a select list and the selected value be passed to FoxyCart.</p>';
+    			echo '<p>Options set here will create a select box on the product page so the user can pick a value. For example an option of "Size" might have a list of values S, M, L, XXL. These values will turn into a select list and the selected value be passed to PayPal.</p>';
     			echo '</div>';
 
     			$options = $Product->get_product_options();

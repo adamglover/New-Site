@@ -25,7 +25,7 @@ class PerchGallery_ImageVersions extends PerchAPI_Factory
      */
     public function preload_for_album($albumID) 
     {
-        $sql = 'SELECT v.* FROM '.$this->table.' v, '.PERCH_DB_PREFIX.'gallery_images i WHERE v.imageID=i.imageID AND i.albumID='.$this->db->pdb($albumID);
+        $sql = 'SELECT v.*, i.imageBucket FROM '.$this->table.' v, '.PERCH_DB_PREFIX.'gallery_images i WHERE v.imageID=i.imageID AND i.albumID='.$this->db->pdb($albumID). ' AND i.imageStatus='.$this->db->pdb('active');
         $rows = $this->db->get_rows($sql);
         
         $cache = array();
@@ -42,7 +42,7 @@ class PerchGallery_ImageVersions extends PerchAPI_Factory
     
     public function preload_all()
     {
-        $sql = 'SELECT * FROM '.$this->table;
+        $sql = 'SELECT v.*, i.imageBucket FROM '.$this->table.' v, '.PERCH_DB_PREFIX.'gallery_images i WHERE v.imageID=i.imageID AND i.imageStatus='.$this->db->pdb('active');
         $rows = $this->db->get_rows($sql);
         
         $cache = array();
@@ -67,7 +67,7 @@ class PerchGallery_ImageVersions extends PerchAPI_Factory
         if (array_key_exists($imageID, $this->version_cache)) {
             $rows = $this->version_cache[$imageID];
         }else{
-            $sql = 'SELECT * FROM '.PERCH_DB_PREFIX.'gallery_image_versions WHERE imageID = '.$imageID;
+            $sql = 'SELECT v.*, i.imageBucket FROM '.PERCH_DB_PREFIX.'gallery_image_versions v, '.PERCH_DB_PREFIX.'gallery_images i WHERE v.imageID=i.imageID AND i.imageID='.(int)$imageID;
         	$rows = $this->db->get_rows($sql);
         }
 	    
@@ -96,7 +96,7 @@ class PerchGallery_ImageVersions extends PerchAPI_Factory
                 }
             }
         }else{
-            $sql = 'SELECT * FROM '.PERCH_DB_PREFIX.'gallery_image_versions WHERE imageID='.$imageID.' AND versionKey = '.$this->db->pdb($versionKey);
+            $sql = 'SELECT v.*, i.imageBucket FROM '.PERCH_DB_PREFIX.'gallery_image_versions v, '.PERCH_DB_PREFIX.'gallery_images i WHERE v.imageID=i.imageID AND i.imageID='.$imageID.' AND v.versionKey='.$this->db->pdb($versionKey);
         	$row = $this->db->get_row($sql);
         }
         

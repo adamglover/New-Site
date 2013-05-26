@@ -46,7 +46,7 @@
             <tr>
                 <td class="primary"><a href="<?php echo $API->app_path(); ?>/images/?id=<?php echo $HTML->encode(urlencode($Album->id())); ?>" class="edit"><?php echo $HTML->encode($Album->albumTitle()); ?></a></td>
                 <td><?php echo $HTML->encode((string)$Album->albumSlug()); ?></td>
-                <td><?php echo $HTML->encode((string)$Album->get_image_count()); ?></td>
+                <td><?php echo $HTML->encode((string)$Album->imageCount()); ?></td>
                 <td><a href="<?php echo $API->app_path(); ?>/delete/?id=<?php echo $HTML->encode(urlencode($Album->id())); ?>" class="delete"><?php echo $Lang->get('Delete'); ?></a></td>
             </tr>
 

@@ -27,7 +27,7 @@ class PerchGallery_Images extends PerchAPI_Factory
      */
     public function get_by_album_id($albumID, $versions=false, $count=false) 
     {
-    	$sql = 'SELECT * FROM '.$this->table .' WHERE albumID = '.$this->db->pdb($albumID).' ORDER BY '.$this->default_sort_column.' ASC';
+    	$sql = 'SELECT * FROM '.$this->table .' WHERE albumID='.$this->db->pdb($albumID).' AND imageStatus='.$this->db->pdb('active').' ORDER BY '.$this->default_sort_column.' ASC';
     	
     	if($count) {
     		$sql.= ' LIMIT '.$this->db->pdb($count);
@@ -89,7 +89,7 @@ class PerchGallery_Images extends PerchAPI_Factory
     public function get_custom($albumID, $opts=array(), $Versions=false) 
     {
         if ($albumID===false) {
-            $sql = 'SELECT i.* FROM '.$this->table .' i, '.PERCH_DB_PREFIX.'gallery_albums a WHERE i.albumID=a.albumID ORDER BY a.albumOrder ASC, i.imageOrder ASC';
+            $sql = 'SELECT i.* FROM '.$this->table .' i, '.PERCH_DB_PREFIX.'gallery_albums a WHERE i.albumID=a.albumID AND i.imageStatus='.$this->db->pdb('active').' ORDER BY a.albumOrder ASC, i.imageOrder ASC';
         }else{
             $sql = 'SELECT * FROM '.$this->table .' WHERE albumID = '.$this->db->pdb($albumID).' ORDER BY '.$this->default_sort_column.' ASC';
         }
@@ -122,6 +122,7 @@ class PerchGallery_Images extends PerchAPI_Factory
     	            $val = $opts['value'];
     	            $match = isset($opts['match']) ? $opts['match'] : 'eq';
     	            foreach($content as $item) {
+                        if (!isset($item[$key])) $item[$key] = false;
     	                if (isset($item[$key])) {
     	                    switch ($match) {
                                 case 'eq': 
@@ -325,7 +326,7 @@ class PerchGallery_Images extends PerchAPI_Factory
     
     public function get_count_for_album($albumID)
     {
-        $sql = 'SELECT COUNT(*) FROM '.$this->table .' WHERE albumID = '.$this->db->pdb($albumID);
+        $sql = 'SELECT COUNT(*) FROM '.$this->table .' WHERE albumID='.$this->db->pdb($albumID).' AND imageStatus='.$this->db->pdb('active');
         return $this->db->get_count($sql);
     }
     
@@ -337,14 +338,14 @@ class PerchGallery_Images extends PerchAPI_Factory
     public function find_by_slug($imageSlug) 
     {
        
-            $sql = 'SELECT * FROM '.$this->table .' WHERE imageSlug= '.$this->db->pdb($imageSlug);
-        
-            $row = $this->db->get_row($sql);
-        
-            if(is_array($row)) {
-                $r = $this->return_instance($row);
-                return $r;
-            }
+        $sql = 'SELECT * FROM '.$this->table .' WHERE imageSlug='.$this->db->pdb($imageSlug).' AND imageStatus='.$this->db->pdb('active');
+    
+        $row = $this->db->get_row($sql);
+    
+        if(is_array($row)) {
+            $r = $this->return_instance($row);
+            return $r;
+        }
         
         return false;
     }
@@ -401,6 +402,7 @@ class PerchGallery_Images extends PerchAPI_Factory
     public function get_recent_for_dashboard($count=4)
     {
         $sql = 'SELECT * FROM '.$this->table.' 
+                WHERE imageStatus='.$this->db->pdb('active').' 
                 ORDER BY imageID DESC LIMIT '.$count;
 
         $rows = $this->db->get_rows($sql);

@@ -107,6 +107,7 @@ class PerchBlog_Authors extends PerchAPI_Factory
                             unset($out[$item['_id']]);
                         }
 
+                        if (!isset($item[$key])) $item[$key] = false;
                         if (isset($item[$key])) {
                             $this_item = $this->_resolve_to_value($item[$key]);
 

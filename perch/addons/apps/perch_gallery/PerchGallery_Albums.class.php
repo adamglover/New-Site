@@ -62,6 +62,7 @@ class PerchGallery_Albums extends PerchAPI_Factory
     	            $val = $opts['value'];
     	            $match = isset($opts['match']) ? $opts['match'] : 'eq';
     	            foreach($content as $item) {
+                        if (!isset($item[$key])) $item[$key] = false;
     	                if (isset($item[$key])) {
     	                    switch ($match) {
                                 case 'eq': 
@@ -219,18 +220,17 @@ class PerchGallery_Albums extends PerchAPI_Factory
      * @param string $albumSlug
      */
     public function find_by_slug($albumSlug) 
-    {
-       
-            $sql = 'SELECT * FROM '.PERCH_DB_PREFIX.'gallery_albums WHERE albumSlug= '.$this->db->pdb($albumSlug);
-        
-            $row = $this->db->get_row($sql);
-        
-            if(is_array($row)) {
-                $r = $this->return_instance($row);
-                return $r;
-            }
-        
-        return false;
+    {  
+        $sql = 'SELECT * FROM '.PERCH_DB_PREFIX.'gallery_albums WHERE albumSlug= '.$this->db->pdb($albumSlug);
+    
+        $row = $this->db->get_row($sql);
+    
+        if(is_array($row)) {
+            $r = $this->return_instance($row);
+            return $r;
+        }
+    
+    return false;
     }
     
     /**
@@ -240,8 +240,8 @@ class PerchGallery_Albums extends PerchAPI_Factory
      * @param int $int
      * @return slug | function 
      */
-    private function check_slug_unique($slug,$int=0) {
-    	
+    private function check_slug_unique($slug,$int=0) 
+    {	
     	$obj = $this->find_by_slug($slug);
     	
     	if(is_object($obj)) {
@@ -262,8 +262,7 @@ class PerchGallery_Albums extends PerchAPI_Factory
      * @return album object
      */
 	public function create($data)
-    {
-        
+    {   
         if (isset($data['albumTitle'])) {
             $data['albumSlug'] = PerchUtil::urlify($data['albumTitle']);
             $data['albumSlug'] = $this->check_slug_unique($data['albumSlug']);
@@ -283,7 +282,16 @@ class PerchGallery_Albums extends PerchAPI_Factory
 	}
     
     
-    
+    public function update_image_counts()
+    {
+        $albums = $this->all();
+
+        if (PerchUtil::count($albums)) {
+            foreach($albums as $Album) {
+                $Album->update_image_count();
+            }
+        }
+    }
     
     
 }

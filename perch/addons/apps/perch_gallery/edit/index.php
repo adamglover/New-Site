@@ -8,6 +8,8 @@
     # include your class files
     include('../PerchGallery_Albums.class.php');
     include('../PerchGallery_Album.class.php');
+    include('../PerchGallery_Images.class.php');
+    include('../PerchGallery_Image.class.php');
 
     # Set the page title
     $Perch->page_title = $Lang->get('Gallery: Edit Album');

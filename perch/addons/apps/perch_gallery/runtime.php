@@ -16,7 +16,7 @@
      * @param bool $return_image
      * @param bool $return
      */
-    function perch_gallery_album_listing($opts=array(), $return=false) 
+    function perch_gallery_albums($opts=array(), $return=false) 
     {
     	$default_opts = array(
     	   'template'=>'a_album.html',
@@ -63,6 +63,12 @@
     	
     }
     
+    // alias
+    function perch_gallery_album_listing($opts=array(), $return=false) {
+        return perch_gallery_albums($opts, $return);
+    }
+
+
     /**
      * 
      * build a single page gallery display of albums and images within them
@@ -73,8 +79,7 @@
      * @param bool $return
      */
     function perch_gallery_build($opts=array(), $return=false) 
-    {
-    	
+    {	
     	$default_opts = array(
     	   'template'         =>'b_static_list_image.html', 
     	   'skip-template'    =>false
@@ -94,7 +99,7 @@
     	if ($opts['skip-template']) {
     	    $out = array();
     	    foreach($list as $Album) {
-    			$out[] = perch_gallery_album($Album->albumSlug(), $opts, true);
+    			$out[] = perch_gallery_album_images($Album->albumSlug(), $opts, true);
     		}
     		return $out;
     	}
@@ -105,7 +110,7 @@
     	
     	if(PerchUtil::count($list)>0) {
     		foreach($list as $Album) {
-    			$r.= perch_gallery_album($Album->albumSlug(), $opts, true);
+    			$r.= perch_gallery_album_images($Album->albumSlug(), $opts, true);
     		}	
     	}
 	    	
@@ -124,7 +129,7 @@
      * @param string $template_image
      * @param bool $return
      */
-    function perch_gallery_album($slug, $opts=array(), $return=false) 
+    function perch_gallery_album_images($slug, $opts=array(), $return=false) 
     {	
     	$default_opts = array(
     	   'template'   =>'a_list_image.html',
@@ -173,6 +178,11 @@
     	return false;
     }
     
+    // alias
+    function perch_gallery_album($slug, $opts=array(), $return=false) 
+    {
+        return perch_gallery_album_images($slug, $opts, $return);
+    }
 
     function perch_gallery_album_details($slug, $opts=array(), $return=false) 
     {   
@@ -205,6 +215,47 @@
         }
 
         return false;
+    }
+
+    function perch_gallery_album_field($slug, $field, $return=false)
+    {
+        $slug = rtrim($slug, '/');
+
+        $API  = new PerchAPI(1.0, 'perch_gallery');
+        
+        $Albums = new PerchGallery_Albums($API);
+        
+        $Album = $Albums->find_by_slug($slug);
+        
+        $r = false;
+        
+        $encode = true;
+
+        if (is_object($Album)) {
+            $field = $Album->$field();
+            if (is_array($field)) {
+                if (isset($field['processed'])) {
+                    $r = $field['processed'];
+                    $encode = false;
+                }elseif (isset($field['_default'])) {
+                    $r = $field['_default'];
+                }else{
+                    $r = $field;
+                }
+            }else{
+                $r = $field;
+            }
+        }
+        
+        if ($return) return $r;
+        
+        if ($encode) {
+            $HTML = $API->get('HTML');
+            echo $HTML->encode($r);
+        }else{
+            echo $r;
+        }
+        
     }
 
 

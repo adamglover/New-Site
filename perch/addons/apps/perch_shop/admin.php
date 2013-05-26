@@ -1,7 +1,7 @@
 <?php
 	if ($CurrentUser->logged_in() && $CurrentUser->has_priv('perch_shop')) {
-		$this->register_app('perch_shop', 'Shop', 1, 'Simple product shop', '1.0');
-	    $this->require_version('perch_shop', '2.0.8');
+		$this->register_app('perch_shop', 'Shop', 1, 'Simple product shop', '1.1.1');
+	    $this->require_version('perch_shop', '2.2.5');
 	    
 	    $this->add_setting('perch_shop_paypal_email', 'Your PayPal email address', 'text', false, false, 'This is the email address linked to your account');
 	    

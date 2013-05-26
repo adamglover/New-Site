@@ -72,5 +72,6 @@
 	"Editing a Category":"Editing a Category",
 	"Category details":"Category details",
 	"Your category has been successfully created. Return to %scategory listing%s":"Your category has been successfully created. Return to %scategory listing%s",
-	"Your product has been successfully created. Return to %sproduct listing%s":"Your product has been successfully created. Return to %sproduct listing%s"
+	"Your product has been successfully created. Return to %sproduct listing%s":"Your product has been successfully created. Return to %sproduct listing%s",
+	"Your product has been successfully updated. Return to %sproduct listing%s":"Your product has been successfully updated. Return to %sproduct listing%s"
 }

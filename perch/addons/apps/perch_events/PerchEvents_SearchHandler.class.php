@@ -9,7 +9,7 @@ class PerchEvents_SearchHandler implements PerchAPI_SearchHandler
         $API = new PerchAPI(1.0, 'perch_events');
         $db = $API->get('DB');
         
-        $sql = 'SELECT "'.__CLASS__.'" AS source, MATCH(eventTitle, eventDescRaw) AGAINST('.$db->pdb($key).') AS score, eventTitle, eventSlug, eventDateTime, eventDescHTML, eventID, "", "", ""
+        $sql = 'SELECT \''.__CLASS__.'\' AS source, MATCH(eventTitle, eventDescRaw) AGAINST('.$db->pdb($key).') AS score, eventTitle, eventSlug, eventDateTime, eventDescHTML, eventID, "", "", ""
 	            FROM '.PERCH_DB_PREFIX.'events 
 	            WHERE eventDateTime>'.$db->pdb(date('Y-m-d H:i:s')).'
 	                AND MATCH(eventTitle, eventDescRaw) AGAINST('.$db->pdb($key).')';
@@ -22,7 +22,7 @@ class PerchEvents_SearchHandler implements PerchAPI_SearchHandler
         $API = new PerchAPI(1.0, 'perch_event');
         $db = $API->get('DB');
         
-        $sql = 'SELECT "'.__CLASS__.'" AS source, eventDateTime AS score, eventTitle, eventSlug, eventDateTime, eventDescHTML, eventID, "", "", ""
+        $sql = 'SELECT \''.__CLASS__.'\' AS source, eventDateTime AS score, eventTitle, eventSlug, eventDateTime, eventDescHTML, eventID, "", "", ""
 	            FROM '.PERCH_DB_PREFIX.'events 
 	            WHERE eventDateTime>'.$db->pdb(date('Y-m-d H:i:s')).'
 	                AND ( 

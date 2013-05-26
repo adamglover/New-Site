@@ -280,7 +280,7 @@ class PerchEvents_Events extends PerchAPI_Factory
                         break;
                     case 'contains':
                         $v = str_replace('/', '\/', $raw_value);
-                        $where[] = $key." REGEXP '/\b".$v."\b/i'";
+                        $where[] = $key." REGEXP '[[:<:]]'.$v.'[[:>:]]'";
                         break;
                     case 'regex':
                     case 'regexp':

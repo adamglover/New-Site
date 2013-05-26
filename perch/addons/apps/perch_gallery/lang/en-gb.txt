@@ -106,5 +106,6 @@
 	"Gallery: Reorder Albums":"Gallery: Reorder Albums",
 	"This page enables you to reorder your current albums.":"This page enables you to reorder your current albums.",
 	"Drag and drop the albums to reorder them.":"Drag and drop the albums to reorder them.",
-	"Album orders successfully updated.":"Album orders successfully updated."
+	"Album orders successfully updated.":"Album orders successfully updated.",
+	"Deleting an Image":"Deleting an Image"
 }

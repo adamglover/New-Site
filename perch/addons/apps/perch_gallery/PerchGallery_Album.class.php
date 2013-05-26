@@ -57,6 +57,13 @@ class PerchGallery_Album  extends PerchAPI_Base
         $PerchGallery_Images = new PerchGallery_Images();
         return $PerchGallery_Images->get_count_for_album($this->id());
     }
+
+    public function update_image_count()
+    {
+        $this->update(array(
+            'imageCount'=>$this->get_image_count()
+            ));
+    }
 }
 
 ?>
