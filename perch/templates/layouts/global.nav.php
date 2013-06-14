@@ -21,7 +21,7 @@
               <li class="<?php perch_layout_var('home'); ?>" ><a href="/">Home</a></li>
               <!--About Us-->
               <li class="dropdown">
-                <a href="#" class="<?php perch_layout_var('about_us'); ?> dropdown-toggle" data-toggle="dropdown">About Us<b class="caret"></b></a>
+                <a href="/about-us#" class="<?php perch_layout_var('about_us'); ?> dropdown-toggle" data-toggle="dropdown">About Us<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/why_join.html">Why Join</a></li>
                   <li><a href="/award_prizes.html">Awards &amp; Prizes</a></li>
@@ -37,7 +37,7 @@
               </li>
               <!--Events-->
               <li class="<?php perch_layout_var('events'); ?> dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
+                <a href="/events#" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <!--Society Events-->
                   <li class="nav-header">Society Events</li>
@@ -49,13 +49,13 @@
                   <li><a href="/floty.html">Finnish Lapphund of the Year</a></li>
                   <li class="divider"></li>
                   <li class="nav-header">Other Events</li>
-                  <li><a href="/champ_shows.html">Championship Shows</a></li>
+                  <li><a href="/events/champ-shows">Championship Shows</a></li>
                   <li><a href="/open_shows.html">Open Shows</a></li>
                 </ul>
               </li>
               <!--Finnish Lapphunds-->
               <li class="<?php perch_layout_var('finnish_lapphunds'); ?> dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Finnish Lapphunds<b class="caret"></b></a>
+                <a href="/finnish-lapphunds#" class="dropdown-toggle" data-toggle="dropdown">Finnish Lapphunds<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/meet_the_breed.html">Meet the Breed</a></li>
                   <li><a href="/breed_standard">Breed Standard</a></li>
@@ -65,7 +65,7 @@
               </li>
               <!--Activities-->
               <li class="<?php perch_layout_var('activities'); ?> dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activities<b class="caret"></b></a>
+                <a href="/activities#" class="dropdown-toggle" data-toggle="dropdown">Activities<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/activities/good-citizen">KC Good Citizen</a></li>
                   <li><a href="/showing.html">Showing</a></li>
@@ -75,7 +75,7 @@
               </li>
               <!--Puppies & Breeders-->
               <li class="<?php perch_layout_var('puppies_breeders'); ?> dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Puppies &amp; Breeders<b class="caret"></b></a>
+                <a href="/puppies-and-breeders#" class="dropdown-toggle" data-toggle="dropdown">Puppies &amp; Breeders<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/breeders.html">Finnish Lapphund Breeders</a></li>
                   <li><a href="/breeding_guidelines.html">Breeding Guidelines</a></li>

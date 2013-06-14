@@ -42,6 +42,7 @@
       margin-bottom: 30px;
     /*adjusts where the top of the carousel sits */
       margin-top: 50px;
+      width: auto;
     }
 
     .carousel .container {
@@ -59,15 +60,13 @@
       z-index: 10;
     }
 
-    .carousel .item {
-      height: 400px;
-    }
+  
     .carousel img {
       position: absolute;
       top: 0;
       left: 0;
-      min-width: 100%;
-      height: 400px;
+      width:auto; 
+      height: auto;
     }
 
     .carousel-caption {
@@ -96,35 +95,27 @@
 
     @media (max-width: 979px) {
 
-      .carousel .item {
-        height: 390px;
-      }
+      
       .carousel img {
         width: auto;
-        height: 390px;
       }
-    }
+      .carousel {
+        margin-top: -20px;
+        margin-bottom: 0px;
+      }
     
     @media (max-width: 767px) {
 
+      .carousel img {
+        width: auto;
+      }
       .carousel {
         margin-top: -20px;
-        margin-left: -20px;
-        margin-right: -20px;
-      }
-      .carousel .container {
-
-      }
-      .carousel .item {
-        height: 300px;
-      }
-      .carousel img {
-        height: 300px;
       }
       .carousel-caption {
         width: 65%;
-        padding: 0 70px;
-        margin-top: 100px;
+        padding: 0 20px;
+        margin-top: 50px;
       }
       .carousel-caption h1 {
         font-size: 30px;
@@ -133,8 +124,10 @@
       .carousel-caption .btn {
         font-size: 18px;
       }
-      
-    }
+
+      .carousel-inner {
+        width: auto;
+      }
     
     @media (max-width: 480px) {
 
@@ -145,12 +138,7 @@
       .carousel .container {
 
       }
-      .carousel .item {
-        height: 155px;
-      }
-      .carousel img {
-        height: 155px;
-      }
+
       .carousel-caption {
         width: 40%;
         padding: 0 15px;
@@ -214,6 +202,7 @@
       <div class="row">
         <!--Welcome section-->
         <div class="span8">
+          <?php perch_pages_breadcrumbs(); ?>
           <?php perch_content('homepage_intro'); ?>
           <div class="row">
             <!--Important Info-->

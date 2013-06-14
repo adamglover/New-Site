@@ -60,8 +60,13 @@
       <div class="row">
         <!--Welcome section-->
         <div class="span8">
-          <!-------->
+          <!---->
         <div id="content">
+          <?php 
+            perch_pages_breadcrumbs(array(
+              'hide-extensions'  => true
+            )); 
+          ?>
           <?php perch_content('GC Intro'); ?>
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                 <li class="active"><a href="#puppy" data-toggle="tab">Puppy Foundation</a></li>

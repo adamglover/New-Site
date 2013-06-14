@@ -74,75 +74,41 @@
       <!-- Left Column-->
       <div class="row">
         <!--Welcome section-->
-        <div class="span8">
-          <?php perch_content('Walks Intro'); ?>
-			    <table class="table table-condensed">
-            <thead>
-              <tr>
-                <th>Walk</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Contact</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php 
-                $opts = array(
-                  'page'=>'/events/event-details.php',
-                  'template'=>'_walks.html',
-                  'sort'=>'event_date',
-                  'sort-order'=>'ASC',
-                );
-                perch_content_custom('Event Details', $opts); 
-              ?>
-				    </tbody>  
-          </table>
-          <div class="row-fluid">
-            <ul class="thumbnails">
-              <li class="span4">
-                <div class="thumbnail">
-                  <img src="http://placehold.it/300x300" alt="alt" width="300px" height="300px">
-                  <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>description text</p>
-                  </div>
-                </div>
-              </li>
-              <li class="span4">
-                <div class="thumbnail">
-                  <img src="http://placehold.it/300x300" alt="alt" width="300px" height="300px">
-                  <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>description text</p>
-                  </div>
-                </div>
-              </li>
-              <li class="span4">
-                <div class="thumbnail">
-                  <img src="http://placehold.it/300x300" alt="alt" width="300px" height="300px">
-                  <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>description text</p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="row-fluid">
-            <ul class="thumbnails"> 
-              <li class="span4">
-                <div class="thumbnail">
-                  <img src="http://placehold.it/300x300" alt="alt" width="300px" height="300px">
-                  <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>description text</p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-		</div>  
-        <?php perch_layout('global.side'); ?>       
+        <div class="span12">
+          <?php perch_content('Champ Shows Intro'); ?>
+			    
+          <?php
+
+            perch_content_create('Champ Shows', array(
+              'template'  => 'champ_show_details.html',
+              'multiple'  => true,
+              'edit-mode' => 'listdetail',
+            ));
+
+
+          if (perch_get('s')) {
+
+            // Detail mode
+            perch_content_custom('Champ Shows', array(
+              'template' => 'champ_show_details.html',
+              'filter'   => 'slug',
+              'match'    => 'eq',
+              'value'    => perch_get('s'),
+              'count'    => 1,
+            )); 
+
+          } else {
+
+            // List mode
+            perch_content_custom('Champ Shows', array(
+              'template' => 'champ_show_listing.html',
+            )); 
+          }
+
+        ?>
+
+		    </div>  
+                
         </div>
       </div>
     </div> <!-- /container -->

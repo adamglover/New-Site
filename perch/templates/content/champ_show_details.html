@@ -1,0 +1,33 @@
+<h1><perch:content id="show" type="text" label="Show title" title="true" required="true" /></h1>
+<h3><perch:content id="show_date" type="date" label="Date of show" format="%A, %e %B %Y"/></h3>
+<h4>Venue: <perch:content id="show_location" type="text" label="Show location" required="true" /></h4>
+<h4>Secretary: <perch:content id="show_secretary" type="text" label="Show secretary" help="In order: Name, Tel, E-mail" required="true" /></h4>
+<h4>Judge:</h4>
+  <perch:content id="judge" type="text" label="Judge" help="Judges names followed by their kennel, where known, in brackets e.g. (Elbereth)" required="true" />
+<h4>CCs:</h4>
+  <perch:content id="cc" type="select" label="CCs" options="none, one, two" allowempty="false" required="true" suppress="true"/>
+
+  <perch:if id="cc" match="eq" value="none">
+  	<perch:else />
+  		<perch:if id="cc" match="eg" value="one">
+  			<i class="icon-tag"></i>
+  			<perch:else />
+  				<i class="icon-tags"></i>
+  		</perch:if>
+  </perch:if>
+
+<h4>Classes:</h4>
+  <perch:content id="classes" type="select" label="Classes" options="Breed, AVNSC" allowempty="false" required="true" />
+<perch:if exists="schedule">
+  <h4>Online schedule</h4>
+</perch:if>
+  <perch:content id="schedule" type="text" label="Online schedule link" help="Enter full website link e.g. http://www.sfls.org.uk" />
+<perch:if exists="entry">
+  <h4>Online entry</h4>
+</perch:if>
+  <perch:content id="entry" type="text" label="Online entry link" help="Enter full website link e.g. http://www.sfls.org.uk" />
+<h4>Entries close</h4>
+
+<h5>Postal: </h5><perch:content id="closing_date_post" type="date" label="Closing date postal" format="%A, %e %B %Y" /> <br>
+<h5>Online: </h5><perch:content id="closing_date_online" type="date" label="Closing date online" format="%A, %e %B %Y" />
+<perch:content id="slug" type="slug" for="show" suppress="true" />

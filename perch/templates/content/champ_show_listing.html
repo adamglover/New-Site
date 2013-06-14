@@ -1,0 +1,77 @@
+<perch:if different="show_date" format="Y">
+  <h2><perch:content id="show_date" type="date" format="Y" /></h2>
+</perch:if>
+
+<perch:before>
+	<table class="table table-condensed">
+    	<thead>
+        	<tr>
+        		<th>Show</th>
+               	<th>Date</th>
+               	<th>Location</th>
+               	<th>Secretary</th>
+               	<th>Judge</th>
+               	<th>CCs</th>
+               	<th>Classes</th>
+               	<th>Schedule</th>
+               	<th>Online Entry</th>
+               	<th>Closing date</th>
+         	</tr>
+      	</thead>
+      	<tbody>
+</perch:before>
+
+
+<tr>
+	<td>
+    <a href="?s=<perch:content id="slug" type="slug" />">
+      <perch:content id="show" type="text" label="Show title" title="true" required="true" />
+    </a>
+  </td>
+
+	<td><perch:content id="show_date" type="date" label="Date of show" format="%e %B"/></td>
+	<td><perch:content id="show_location" type="text" label="Show location" required="true" /></td>
+	<td><perch:content id="show_secretary" type="text" label="Show secretary" help="In order: Name, Tel, E-mail" required="true" /></td>
+	<td><perch:content id="judge" type="text" label="Judge" help="Judges names followed by their kennel, where known, in brackets e.g. (Elbereth)" required="true" /></td>
+	<perch:content id="cc" type="select" label="CCs" options="none, one, two" allowempty="false" required="true" suppress="true"/>
+		<perch:if id="cc" match="eq" value="none">
+			<td></td>
+  			<perch:else />
+  				<perch:if id="cc" match="eg" value="one">
+  					<td><i class="icon-tag"></i></td>
+  					<perch:else />
+  						<td><i class="icon-tags"></i></td>
+  				</perch:if>
+  		</perch:if>
+
+	<td><perch:content id="classes" type="select" label="Classes" options="Breed, AVNSC" allowempty="false" required="true" /></td>
+	<perch:content id="schedule" type="text" label="Online schedule link" help="Enter full website link e.g. http://www.sfls.org.uk" suppress="true"/>
+    <perch:if exists="schedule">
+      <td>
+        <a href="<perch:content id="schedule" />" target="_new">
+          <i class="icon-book"></i>
+        </a>
+      </td>
+      <perch:else />
+        <td></td>   
+    </perch:if>
+	<perch:content id="entry" type="text" label="Online entry link" help="Enter full website link e.g. http://www.sfls.org.uk" suppress="true"/>
+    <perch:if exists="entry">
+      <td>
+        <a href="<perch:content id="entry" />" target="_new">
+          <i class="icon-globe"></i>
+        </a>
+      </td>
+      <perch:else />
+        <td></td>
+    </perch:if>
+	<td><perch:content id="closing_date_post" type="date" label="Closing date postal" format="%e %B" />
+      <br>
+  		<perch:content id="closing_date_online" type="date" label="Closing date online" format="%e %B" />
+  </td>
+	<perch:content id="slug" type="slug" for="show" suppress="true" />
+</tr>
+	<perch:after>
+		</tbody>
+	</table>
+</perch:after>
