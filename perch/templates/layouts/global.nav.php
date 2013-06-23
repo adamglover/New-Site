@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="navbar-inner">
-        <div class="container">
+        <div class="container sticky">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
